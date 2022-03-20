@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.store.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.cy.store.entity.User">
+        <id property="uid" column="uid" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="CHAR"/>
+        <result property="salt" column="salt" jdbcType="CHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="INTEGER"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>
+        <result property="createdUser" column="created_user" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+        <result property="modifiedUser" column="modified_user" jdbcType="VARCHAR"/>
+        <result property="modifiedTime" column="modified_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        uid
+        ,username,password,
+        salt,phone,email,
+        gender,avatar,is_delete,
+        created_user,created_time,modified_user,
+        modified_time
+    </sql>
+
+    <!--mybatis主键自增-->
+    <!--useGeneratedKeys="true" keyProperty="uid"-->
+    <insert id="insertUser">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">username,</if>
+            <if test="password != null">password,</if>
+            <if test="salt != null">salt,</if>
+            <if test="phone != null">phone,</if>
+            <if test="email != null">email,</if>
+            <if test="gender != null">gender,</if>
+            <if test="avatar != null">avatar,</if>
+            <if test="isDelete != null">is_delete,</if>
+            <if test="createdUser != null">created_user,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="modifiedUser != null">modified_user,</if>
+            <if test="modifiedTime != null">modified_time,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">#{username,jdbcType=VARCHAR},</if>
+            <if test="password != null">#{password,jdbcType=CHAR},</if>
+            <if test="salt != null">#{salt,jdbcType=CHAR},</if>
+            <if test="phone != null">#{phone,jdbcType=VARCHAR},</if>
+            <if test="email != null">#{email,jdbcType=VARCHAR},</if>
+            <if test="gender != null">#{gender,jdbcType=INTEGER},</if>
+            <if test="avatar != null">#{avatar,jdbcType=VARCHAR},</if>
+            <if test="isDelete != null">#{isDelete,jdbcType=INTEGER},</if>
+            <if test="createdUser != null">#{createdUser,jdbcType=VARCHAR},</if>
+            <if test="createdTime != null">#{createdTime,jdbcType=TIMESTAMP},</if>
+            <if test="modifiedUser != null">#{modifiedUser,jdbcType=VARCHAR},</if>
+            <if test="modifiedTime != null">#{modifiedTime,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+
+
+    <!--
+        resultType 要求表的字段的名字和实体类的字段的名字一样
+        resultMap 自定义查询结构集的映射规则
+    -->
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where
+        username = #{username,jdbcType=VARCHAR}
+    </select>
+    <update id="updatePasswordByUid">
+        update t_user
+        set
+        <if test="password != null">#{password,jdbcType=CHAR},</if>
+        <if test="modifiedUser != null">#{modifiedUser,jdbcType=VARCHAR},</if>
+        <if test="modifiedTime != null">#{modifiedTime,jdbcType=TIMESTAMP},</if>
+        where uid = #{uid,jdbcType=NUMERIC}
+    </update>
+    <select id="findByUid" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where
+        uid = #{uid,jdbcType=NUMERIC}
+    </select>
+    <update id="updateInfoByUid">
+        update t_user
+        SET
+        <if test="phone != null">phone=#{phone},</if>
+        <if test="email != null">email=#{email},</if>
+        <if test="gender != null">gender=#{gender},</if>
+        modified_user=#{modifiedUser},
+        modified_time=#{modifiedTime}
+        WHERE uid = ${uid}
+    </update>
+    <!--注入的方式不一样-->
+</mapper>
