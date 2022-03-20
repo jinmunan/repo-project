@@ -2,8 +2,10 @@ package com.cy.store.service;
 
 import com.cy.store.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.apache.ibatis.annotations.Param;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author THINKPAD
@@ -47,4 +49,13 @@ public interface UserService extends IService<User> {
      * @param user
      */
     void changeInfo(Integer uid, String username, User user);
+
+    /**
+     * 修改用户头像
+     * @param uid
+     * @param avatar 用户头像路径
+     * @param username
+     */
+    void changeAvatar(Integer uid,String avatar,String username);
+
 }

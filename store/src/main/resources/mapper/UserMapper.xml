@@ -101,5 +101,13 @@
         modified_time=#{modifiedTime}
         WHERE uid = ${uid}
     </update>
+    <update id="updateAvatarByUid">
+        update t_user
+        set
+        <if test="avatar != null">avatar=#{avatar},</if>
+        modified_user=#{modifiedUser},
+        modified_time=#{modifiedTime}
+        where uid = ${uid}
+    </update>
     <!--注入的方式不一样-->
 </mapper>

@@ -37,6 +37,7 @@ public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 根据用户的uid来修改用户的密码
+     *
      * @param password
      * @param uid
      * @param modifiedUser
@@ -64,6 +65,17 @@ public interface UserMapper extends BaseMapper<User> {
      * @return
      */
     Integer updateInfoByUid(User user);
+
+    /**
+     * @param avatar
+     * @param uid
+     * @return
+     */
+    Integer updateAvatarByUid(
+            @Param("avatar") String avatar,
+            @Param("uid") Integer uid,
+            @Param("modifiedUser") String modifiedUser,
+            @Param("modifiedTime") Date modifiedTime);
 }
 
 

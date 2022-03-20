@@ -26,7 +26,7 @@ public class BaseController {
     /*请求处理方法,这个方法的返回值就是需要传递给前端的数据*/
     /*自动将异常对象传递给此方法的参数列表上*/
     /*当项目中产生了异常,被统一拦截到此方法,此方法就是充当处理请求的方法 方法的返回值给到前端*/
-    @ExceptionHandler(ServiceException.class) //用于同意处理抛出的异常
+    @ExceptionHandler({ServiceException.class,FileUploadException.class}) //用于同意处理抛出的异常
     public JsonResult<Void> handleException(Throwable e) {
         JsonResult<Void> result = new JsonResult<>(e);
         if (e instanceof UsernameDuplicatedException) {
@@ -41,9 +41,21 @@ public class BaseController {
         } else if (e instanceof PasswordNotMatchException) {
             result.setState(5002);
             result.setMessage("用户密码不匹配");
-        } else if (e instanceof UpdateException) {
-            result.setState(5002);
-            result.setMessage("更新数据时产生位置的异常");
+        } else if (e instanceof FileEmptyException) {
+            result.setState(6000);
+            result.setMessage("文件为空异常");
+        } else if (e instanceof FileSizeException) {
+            result.setState(6001);
+            result.setMessage("文件尺寸异常");
+        } else if (e instanceof FileTypeException) {
+            result.setState(6002);
+            result.setMessage("文件类型异常");
+        } else if (e instanceof FileStateException) {
+            result.setState(6003);
+            result.setMessage("文件状态异常");
+        } else if (e instanceof FileUploadException) {
+            result.setState(6004);
+            result.setMessage("文件上传异常");
         }
         return result;
     }

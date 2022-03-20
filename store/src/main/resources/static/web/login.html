@@ -159,13 +159,15 @@
                 if (json.state === 200) {
                     alert("登录成功")
                     location.href = "index.html"
+                    //将头像保存在cookie中
+                    $.cookie("avatar",json.data.avatar,{expires:7})
                 } else {
                     alert("登录失败")
                 }
                 //跳转到登录页面
             },
             error: function (xhr) {
-                alert("登录时产生位置的异常" + xhr.status)
+                alert("登录时产生未知的异常" + xhr.status)
             }
         });
     });

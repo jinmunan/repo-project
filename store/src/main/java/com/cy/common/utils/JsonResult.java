@@ -33,10 +33,10 @@ public class JsonResult<E> implements Serializable {
         this.message = e.getMessage();
     }
 
-    public JsonResult(Integer state, String message) {
-        this.state = state;
-        this.message = message;
-    }
+//    public JsonResult(Integer state, String message) {
+//        this.state = state;
+//        this.message = message;
+//    }
 
     public JsonResult(Integer state, E data) {
         this.state = state;
