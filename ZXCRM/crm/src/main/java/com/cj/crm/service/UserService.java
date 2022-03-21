@@ -11,4 +11,8 @@ import com.cj.crm.model.UserModel;
  */
 public interface UserService extends IService<User> {
     UserModel login(String username, String password);
+
+    User findById(Integer id);
+
+    void updateUserPassword(Integer userId, String oldPassword, String newPassword, String confirmPassword);
 }

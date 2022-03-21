@@ -24,4 +24,9 @@ class UserServiceTest {
         UserModel user = userService.login("admin", "123456");
         System.out.println(user);
     }
+
+    @Test
+    void updateUserPassword(){
+        userService.updateUserPassword(80,"44444","123456","123456");
+    }
 }

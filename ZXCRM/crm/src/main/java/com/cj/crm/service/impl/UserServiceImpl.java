@@ -52,6 +52,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return buildUserInfo(user);
     }
 
+    @Override
+    public User findById(Integer id) {
+        return userMapper.findById(id);
+    }
+
+
     /**
      * 校验参数是否为空
      *
@@ -68,6 +74,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     /**
      * 绑定传输对象
+     *
      * @param user
      * @return
      */
@@ -78,6 +85,45 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userModel.setUsername(user.getUsername());
         userModel.setTrueName(user.getTruename());
         return userModel;
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param userId
+     * @param oldPassword
+     * @param newPassword
+     * @param confirmPassword
+     */
+    @Override
+    public void updateUserPassword(Integer userId, String oldPassword, String newPassword, String confirmPassword) {
+        //验证
+        checkParams(userId, oldPassword, newPassword, confirmPassword);
+        //更新密码
+        User user = userMapper.findById(userId);
+        user.setPassword(Md5Util.encode(newPassword));
+        AssertUtil.isTrue(userMapper.updateSelective(user) < 1, "用户密码更新失败!");
+
+
+    }
+
+    /**
+     * 校验密码
+     *
+     * @param userId
+     * @param oldPassword
+     * @param newPassword
+     * @param confirmPassword
+     */
+    private void checkParams(Integer userId, String oldPassword, String newPassword, String confirmPassword) {
+        User user = userMapper.findById(userId);
+        AssertUtil.isTrue(userId == null || null == user, "用户未登录或不存在");
+        AssertUtil.isTrue(StringUtils.isBlank(oldPassword), "请输入原始密码");
+        AssertUtil.isTrue(StringUtils.isBlank(newPassword), "请输入新密码");
+        AssertUtil.isTrue(StringUtils.isBlank(confirmPassword), "请输入确认密码");
+        AssertUtil.isTrue(!user.getPassword().equals(Md5Util.encode(oldPassword)), "原始密码不正确");
+        AssertUtil.isTrue(!newPassword.equals(confirmPassword), "密码必须保存一致");
+        AssertUtil.isTrue(user.getPassword().equals(Md5Util.encode(newPassword)), "与原始密码一致");
     }
 }
 

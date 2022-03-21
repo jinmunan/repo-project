@@ -27,4 +27,25 @@
         <include refid="Base_Column_List"/>
         from t_user where username = #{username}
     </select>
+    <select id="findById" resultType="com.cj.crm.entity.User">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user where id = ${id}
+    </select>
+    <update id="updateSelective">
+        update t_user
+        <set>
+            <if test="username != null">username=#{username,jdbcType=VARCHAR},</if>
+            <if test="password != null">password=#{password,jdbcType=VARCHAR},</if>
+            <if test="truename != null">truename=#{truename,jdbcType=VARCHAR},</if>
+            <if test="email != null">email=#{email,jdbcType=VARCHAR},</if>
+            <if test="phone != null">phone=#{phone,jdbcType=VARCHAR},</if>
+            <if test="isvalid != null">isvalid=#{isvalid,jdbcType=NUMERIC},</if>
+            <if test="createDate != null">create_date=#{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="updateDate != null">update_date=#{updateDate,jdbcType=TIMESTAMP},</if>
+        </set>
+        where id = #{id,jdbcType=NUMERIC}
+    </update>
+
+
 </mapper>
