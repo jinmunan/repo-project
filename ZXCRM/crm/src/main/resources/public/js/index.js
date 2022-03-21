@@ -37,9 +37,17 @@ layui.use(['form', 'jquery', 'jquery_cookie'], function () {
             success: function (data) {
                 if (data.code == 200) {
                     layer.msg("用户登录成功", function () {
-                        $.cookie("userIdStr",data.result.userIdStr);
-                        $.cookie("username",data.result.username);
-                        $.cookie("trueName",data.result.trueName);
+                        $.cookie("userIdStr", data.result.userIdStr);
+                        $.cookie("username", data.result.username);
+                        $.cookie("trueName", data.result.trueName);
+
+                        //记住我功能
+                        if ($("input[type='checkbox']").is(":checked")) {
+                            $.cookie("userIdStr", data.result.userIdStr, {expires: 7});
+                            $.cookie("username", data.result.username, {expires: 7});
+                            $.cookie("trueName", data.result.trueName, {expires: 7});
+                        }
+
                         location.href = ctx + "/main";
                     });
                 } else {

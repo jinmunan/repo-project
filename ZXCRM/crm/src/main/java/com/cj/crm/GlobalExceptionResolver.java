@@ -2,6 +2,7 @@ package com.cj.crm;
 
 import com.alibaba.fastjson.JSON;
 import com.cj.common.base.ResultInfo;
+import com.cj.common.exceptions.NoLoginException;
 import com.cj.common.exceptions.ParamsException;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -33,9 +34,16 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
          */
         ModelAndView mv = new ModelAndView();
         mv.setViewName("error");
-        mv.addObject("code",500);
-        mv.addObject("msg","系统异常，请重试...");
+        mv.addObject("code", 500);
+        mv.addObject("msg", "系统异常，请重试...");
 
+        //未登录异常 优先级最高
+        if (ex instanceof NoLoginException) {
+            mv.setViewName("no_login");
+            mv.addObject("msg", "用户未登录!");
+            mv.addObject("ctx", request.getContextPath());
+            return mv;
+        }
 
         if (handler instanceof HandlerMethod) {
             //反射
