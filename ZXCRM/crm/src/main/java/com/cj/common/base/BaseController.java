@@ -1,4 +1,4 @@
-package com.cj.crm.common.base;
+package com.cj.common.base;
 
 
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,7 +27,7 @@ public class BaseController {
     public ResultInfo success(String msg,Object result){
         ResultInfo resultInfo= new ResultInfo();
         resultInfo.setMsg(msg);
-        resultInfo.setData(result);
+        resultInfo.setResult(result);
         return resultInfo;
     }
 

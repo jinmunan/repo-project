@@ -1,4 +1,4 @@
-package com.cj.crm.common.utils;
+package com.cj.common.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

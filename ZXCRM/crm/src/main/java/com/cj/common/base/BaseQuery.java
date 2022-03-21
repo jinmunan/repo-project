@@ -1,4 +1,4 @@
-package com.cj.crm.common.base;
+package com.cj.common.base;
 
 
 public class BaseQuery {

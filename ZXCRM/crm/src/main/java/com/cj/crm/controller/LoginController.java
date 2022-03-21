@@ -1,16 +1,15 @@
 package com.cj.crm.controller;
 
-import com.cj.crm.common.base.BaseController;
+import com.cj.common.base.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by Jinmunan
  * 2022/3/20
  * 21:47
  */
-//@RestController
+//@RestController 不能使用
 @Controller
 public class LoginController extends BaseController {
     /**
