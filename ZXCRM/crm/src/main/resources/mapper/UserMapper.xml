@@ -47,5 +47,16 @@
         where id = #{id,jdbcType=NUMERIC}
     </update>
 
+    <select id="queryAllSales" resultType="java.util.Map">
+        select u.id,
+               u.username as uname
+        from t_user u
+                 left join t_user_role ur on u.id = ur.user_id
+                 left join t_role r on ur.role_id = r.id
+        where u.isvalid = 1
+          AND r.is_valid = 1
+          AND r.role_name = "销售"
+    </select>
+
 
 </mapper>

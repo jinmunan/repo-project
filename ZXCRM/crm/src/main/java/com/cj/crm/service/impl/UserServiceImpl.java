@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author THINKPAD
@@ -105,6 +107,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         AssertUtil.isTrue(userMapper.updateSelective(user) < 1, "用户密码更新失败!");
 
 
+    }
+
+    @Override
+    public List<Map<String, Object>> queryAllSales() {
+        return userMapper.queryAllSales();
     }
 
     /**
