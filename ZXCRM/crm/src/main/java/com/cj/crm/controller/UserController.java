@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jinmunan
@@ -45,6 +47,12 @@ public class UserController extends BaseController {
         ResultInfo resultInfo = new ResultInfo();
         userService.updateUserPassword(LoginUserUtil.releaseUserIdFromCookie(request), oldPassword, newPassword, confirmPassword);
         return resultInfo;
+    }
+
+    @RequestMapping(value = "/queryAllSales")
+    @ResponseBody
+    public List<Map<String, Object>> queryAllSales() {
+        return userService.queryAllSales();
     }
 
 }

@@ -4,6 +4,9 @@ import com.cj.crm.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cj.crm.model.UserModel;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author THINKPAD
  * @description 针对表【t_user】的数据库操作Service
@@ -16,5 +19,6 @@ public interface UserService extends IService<User> {
 
     void updateUserPassword(Integer userId, String oldPassword, String newPassword, String confirmPassword);
 
+    List<Map<String,Object>> queryAllSales();
 
 }
