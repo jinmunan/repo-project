@@ -1,6 +1,7 @@
 package com.cj.common.base;
 
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface BaseMapper<T,ID> {
      * @param entity
      * @return
      */
-    public Integer insertSelective(T entity) throws DataAccessException;
+    public Integer insertSelective( T entity) throws DataAccessException;
 
     /**
      * 添加记录返回主键
