@@ -8,7 +8,6 @@ layui.use(['form', 'jquery', 'jquery_cookie'], function () {
     form.on("submit(login)", function (data) {
         //获取表单元素 用户名 密码
         data = data.field;
-        console.log(data);
 
         /**
          * 前端校验

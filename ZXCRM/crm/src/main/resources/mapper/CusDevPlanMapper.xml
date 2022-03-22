@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generator.mapper.CusDevPlanMapper">
+
+    <resultMap id="BaseResultMap" type="com.cj.crm.entity.CusDevPlan">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="saleChanceId" column="sale_chance_id" jdbcType="INTEGER"/>
+            <result property="planItem" column="plan_item" jdbcType="VARCHAR"/>
+            <result property="planDate" column="plan_date" jdbcType="TIMESTAMP"/>
+            <result property="exeAffect" column="exe_affect" jdbcType="VARCHAR"/>
+            <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
+            <result property="updateDate" column="update_date" jdbcType="TIMESTAMP"/>
+            <result property="isValid" column="is_valid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,sale_chance_id,plan_item,
+        plan_date,exe_affect,create_date,
+        update_date,is_valid
+    </sql>
+</mapper>

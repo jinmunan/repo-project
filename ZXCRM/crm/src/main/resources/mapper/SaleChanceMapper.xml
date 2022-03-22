@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cj.crm.mapper.SaleChanceMapper">
+
+    <resultMap id="BaseResultMap" type="com.cj.crm.entity.SaleChance">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="chanceSource" column="chance_source" jdbcType="VARCHAR"/>
+        <result property="customerName" column="customer_name" jdbcType="VARCHAR"/>
+        <result property="cgjl" column="cgjl" jdbcType="INTEGER"/>
+        <result property="overview" column="overview" jdbcType="VARCHAR"/>
+        <result property="linkMan" column="link_man" jdbcType="VARCHAR"/>
+        <result property="linkPhone" column="link_phone" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="createMan" column="create_man" jdbcType="VARCHAR"/>
+        <result property="assignMan" column="assign_man" jdbcType="VARCHAR"/>
+        <result property="assignTime" column="assign_time" jdbcType="TIMESTAMP"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="devResult" column="dev_result" jdbcType="INTEGER"/>
+        <result property="isValid" column="is_valid" jdbcType="INTEGER"/>
+        <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
+        <result property="updateDate" column="update_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,chance_source,customer_name,
+        cgjl,overview,link_man,
+        link_phone,description,create_man,
+        assign_man,assign_time,state,
+        dev_result,is_valid,create_date,
+        update_date
+    </sql>
+
+    <!-- 多条件查询 -->
+    <!--奇葩问题 当state=0的时候识别不了-->
+    <select id="selectByParams" parameterType="com.cj.crm.query.SaleChanceQuery"
+            resultType="com.cj.crm.entity.SaleChance">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_sale_chance s
+        <where>
+            s.is_valid = 1
+            <if test="customerName != null and customerName != ''">
+                and s.customer_name like concat('%',#{customerName},'%')
+            </if>
+            <if test="createMan != null and createMan != ''">
+                and s.create_man = #{createMan}
+            </if>
+            <!--<if test="state != null and state != '' or state == 0  ">-->
+            <if test="state != null">
+                and s.state = #{state}
+            </if>
+        </where>
+    </select>
+</mapper>
