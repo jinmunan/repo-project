@@ -1,6 +1,7 @@
 package com.cj.crm.service;
 
 
+import com.cj.crm.entity.SaleChance;
 import com.cj.crm.query.SaleChanceQuery;
 
 import java.util.Map;
@@ -12,4 +13,8 @@ import java.util.Map;
  */
 public interface SaleChanceService {
     Map<String, Object> querySaleChanceByParams(SaleChanceQuery saleChanceQuery);
+
+    void saveSaleChance(SaleChance saleChance);
+    void updateSaleChance(SaleChance saleChance);
+    SaleChance selectByPrimaryKey(Integer id);
 }

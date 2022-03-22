@@ -55,4 +55,143 @@
             </if>
         </where>
     </select>
+
+    <insert id="insertSelective" parameterType="com.cj.crm.entity.SaleChance">
+        insert into t_sale_chance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="chanceSource != null">
+                chance_source,
+            </if>
+            <if test="customerName != null">
+                customer_name,
+            </if>
+            <if test="cgjl != null">
+                cgjl,
+            </if>
+            <if test="overview != null">
+                overview,
+            </if>
+            <if test="linkMan != null">
+                link_man,
+            </if>
+            <if test="linkPhone != null">
+                link_phone,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="createMan != null">
+                create_man,
+            </if>
+            <if test="assignMan != null">
+                assign_man,
+            </if>
+            <if test="assignTime != null">
+                assign_time,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="devResult != null">
+                dev_result,
+            </if>
+            <if test="isValid != null">
+                is_valid,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="chanceSource != null">
+                #{chanceSource,jdbcType=VARCHAR},
+            </if>
+            <if test="customerName != null">
+                #{customerName,jdbcType=VARCHAR},
+            </if>
+            <if test="cgjl != null">
+                #{cgjl,jdbcType=INTEGER},
+            </if>
+            <if test="overview != null">
+                #{overview,jdbcType=VARCHAR},
+            </if>
+            <if test="linkMan != null">
+                #{linkMan,jdbcType=VARCHAR},
+            </if>
+            <if test="linkPhone != null">
+                #{linkPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="createMan != null">
+                #{createMan,jdbcType=VARCHAR},
+            </if>
+            <if test="assignMan != null">
+                #{assignMan,jdbcType=VARCHAR},
+            </if>
+            <if test="assignTime != null">
+                #{assignTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=INTEGER},
+            </if>
+            <if test="devResult != null">
+                #{devResult,jdbcType=INTEGER},
+            </if>
+            <if test="isValid != null">
+                #{isValid,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_sale_chance
+        where
+        id = #{id,jdbcType=NUMERIC}
+    </select>
+
+
+    <update id="updateByPrimaryKeySelective">
+        update t_sale_chance
+        <set>
+            <if test="chanceSource != null">chance_source=#{chanceSource,jdbcType=VARCHAR},</if>
+            <if test="customerName != null">customer_name=#{customerName,jdbcType=VARCHAR},</if>
+            <if test="cgjl != null">cgjl=#{cgjl,jdbcType=NUMERIC},</if>
+            <if test="overview != null">overview=#{overview,jdbcType=VARCHAR},</if>
+            <if test="linkMan != null">link_man=#{linkMan,jdbcType=VARCHAR},</if>
+            <if test="linkPhone != null">link_phone=#{linkPhone,jdbcType=VARCHAR},</if>
+            <if test="description != null">description=#{description,jdbcType=VARCHAR},</if>
+            <if test="createMan != null">create_man=#{createMan,jdbcType=VARCHAR},</if>
+            <if test="state != null">state=#{state,jdbcType=NUMERIC},</if>
+            <if test="devResult != null">dev_result=#{devResult,jdbcType=NUMERIC},</if>
+            <if test="isValid != null">is_valid=#{isValid,jdbcType=NUMERIC},</if>
+            <if test="createDate != null">create_date=#{createDate,jdbcType=TIMESTAMP},</if>
+            <if test="updateDate != null">update_date=#{updateDate,jdbcType=TIMESTAMP},</if>
+            <!--防止非空判断-->
+            assign_man=#{assignMan,jdbcType=VARCHAR},
+            assign_time=#{assignTime,jdbcType=TIMESTAMP}
+        </set>
+
+        where id = #{id,jdbcType=NUMERIC}
+    </update>
+
+
 </mapper>

@@ -45,7 +45,7 @@
             <div class="layui-form-item layui-row layui-col-xs12">
                 <label class="layui-form-label">成功几率(%)</label>
                 <div class="layui-input-block">
-                    <input type="text" class="layui-input" name="cgjl" value="${(saleChance.cgjl)!}" placeholder="请输入成功几率">
+                    <input type="text" class="layui-input" name="cgjl" value="${(saleChance.cgjl)!}" placeholder="请输入成功几率(0-100)->禁止填写%">
                 </div>
             </div>
             <div class="layui-form-item layui-row layui-col-xs12">
@@ -70,6 +70,6 @@
                 </div>
             </div>
         </form>
-    <script type="text/javascript" src="${ctx}/js/saleChance/add.update.js"></script>
+    <script type="text/javascript" src="${ctx}/js/saleChance/add_update.js"></script>
     </body>
 </html>
