@@ -29,7 +29,7 @@ public class AddressController extends BaseController {
     @RequestMapping(value = "/add_new_address")
     @ResponseBody
     public JsonResult<Void> addNewAddress(Address address, HttpSession httpSession) {
-        log.debug("获取的地址信息是:" + address);
+        log.info("获取的地址信息是:" + address.toString());
         Integer uid = getUidFromSession(httpSession);
         String username = getUsernameFromSession(httpSession);
         addressService.addNewAddress(address, uid, username);

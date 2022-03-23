@@ -300,109 +300,102 @@
 
 <!--js脚本开始-->
 <script type="application/javascript">
+    let defaultOption = '<option value="0">----- 请选择 -----</option>';
 
-    //option只认识value
-    let defaultOption = "<option value='0'>---- 请选择 ----</option>"
-
-
-    $(function () {
+    $(document).ready(function() {
         showProvinceList();
-        $("#city-list").append(defaultOption)
-        $("#area-list").append(defaultOption)
+        $("#city-list").append(defaultOption);
+        $("#area-list").append(defaultOption);
     });
 
-    //监听省份
-    $("#province-list").change(function () {
-        //发送ajax完成注册功能
-        //获取省的父代号
-        let parent = $("#province-list").val();
-        //清空option
-        $("city-list").empty();
-        $("area-list").empty();
-        //请选中
-        $("city-list").append(defaultOption)
-        $("area-list").append(defaultOption)
-
-        if (parent == 0) {
-            return;
-        }
-
-        $.ajax({
-            url: "/dictDistrict",
-            type: "post",
-            data: "parent=" + parent,
-            dataType: "JSON",
-            success: function (json) {
-                if (json.state === 200) {
-                    let list = json.data;
-                    for (let i = 0; i < list.length; i++) {
-                        let opt = "<option value='" + list[i].code + "'>" + list[i].name + "</option>";
-                        $("#city-list").append(opt);
-                    }
-                } else {
-                    alert("获取城市信息加载失败!")
-                }
-                //跳转到登录页面
-            },
-        });
+    $("#province-list").change(function() {
+        showCityList();
     });
 
-    //监听城市
-    $("#city-list").change(function () {
-        //发送ajax完成注册功能
-        //获取省的父代号
-        let parent = $("#city-list").val();
-        //清空option
-        $("area-list").empty();
-        //请选中
-        $("area-list").append(defaultOption)
-
-        if (parent == 0) {
-            return;
-        }
-
-        $.ajax({
-            url: "/dictDistrict",
-            type: "post",
-            data: "parent=" + parent,
-            dataType: "JSON",
-            success: function (json) {
-                if (json.state === 200) {
-                    let list = json.data;
-                    for (let i = 0; i < list.length; i++) {
-                        let opt = "<option value='" + list[i].code + "'>" + list[i].name + "</option>";
-                        $("#area-list").append(opt);
-                    }
-                } else {
-                    alert("获取城市信息加载失败!")
-                }
-                //跳转到登录页面
-            },
-        });
+    $("#city-list").change(function() {
+        showAreaList();
     });
 
-
-    //获取省的名称
     function showProvinceList() {
-        //发送ajax完成注册功能
+        $("#province-list").append(defaultOption);
         $.ajax({
             url: "/dictDistrict",
-            type: "post",
+            type: "GET",
             data: "parent=86",
             dataType: "JSON",
-            success: function (json) {
-                if (json.state === 200) {
+            success: function(json) {
+                if (json.state == 200) {
                     let list = json.data;
+                    console.log("count=" + list.length);
                     for (let i = 0; i < list.length; i++) {
-                        let opt = "<option value='" + list[i].code + "'>" + list[i].name + "</option>";
-                        $("#province-list").append(opt);
+                        console.log(list[i].name);
+                        let option = '<option value="' + list[i].code + '">' + list[i].name + '</option>';
+                        $("#province-list").append(option);
                     }
-                } else {
-                    alert("获取省/直辖市信息加载失败!")
                 }
-            },
+            }
         });
     }
+
+    function showCityList() {
+        let parent = $("#province-list").val();
+        $("#city-list").empty();
+        $("#area-list").empty();
+
+        $("#city-list").append(defaultOption);
+        $("#area-list").append(defaultOption);
+
+        if (parent == 0) {
+            return;
+        }
+
+        $.ajax({
+            url: "/dictDistrict",
+            type: "GET",
+            data: "parent=" + parent,
+            dataType: "JSON",
+            success: function(json) {
+                if (json.state == 200) {
+                    let list = json.data;
+                    console.log("count=" + list.length);
+                    for (let i = 0; i < list.length; i++) {
+                        console.log(list[i].name);
+                        let option = '<option value="' + list[i].code + '">' + list[i].name + '</option>';
+                        $("#city-list").append(option);
+                    }
+                }
+            }
+        });
+    }
+
+    function showAreaList() {
+        let parent = $("#city-list").val();
+        $("#area-list").empty();
+        $("#area-list").append(defaultOption);
+
+        if (parent == 0) {
+            return;
+        }
+
+        $.ajax({
+            url: "/dictDistrict",
+            type: "GET",
+            data: "parent=" + parent,
+            dataType: "JSON",
+            success: function(json) {
+                if (json.state == 200) {
+                    let list = json.data;
+                    console.log("count=" + list.length);
+                    for (let i = 0; i < list.length; i++) {
+                        console.log(list[i].name);
+                        let option = '<option value="' + list[i].code + '">' + list[i].name + '</option>';
+                        $("#area-list").append(option);
+                    }
+                }
+            }
+        });
+    }
+
 
     //1.监听注册是否被点击
     $("#btn-add-new-address").click(function () {

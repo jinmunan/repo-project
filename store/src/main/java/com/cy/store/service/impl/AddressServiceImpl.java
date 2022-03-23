@@ -43,8 +43,8 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
         String city = dictDistrictService.getNameByCode(address.getCityCode());
         String area = dictDistrictService.getNameByCode(address.getAreaCode());
         address.setProvinceName(province);
-        address.setProvinceName(city);
-        address.setProvinceName(area);
+        address.setCityName(city);
+        address.setAreaName(area);
 
         //补全4项日志
         address.setUid(uid);
