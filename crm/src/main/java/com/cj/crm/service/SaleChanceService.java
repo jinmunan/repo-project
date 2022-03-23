@@ -13,8 +13,8 @@ import java.util.Map;
  */
 public interface SaleChanceService {
     Map<String, Object> querySaleChanceByParams(SaleChanceQuery saleChanceQuery);
-
     void saveSaleChance(SaleChance saleChance);
     void updateSaleChance(SaleChance saleChance);
     SaleChance selectByPrimaryKey(Integer id);
+    void deleteSaleChance(Integer[] ids);
 }

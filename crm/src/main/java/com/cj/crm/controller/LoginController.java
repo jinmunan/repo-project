@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * 2022/3/20
  * 21:47
  */
+@SuppressWarnings("all")
 //@RestController 不能使用
 @Controller
 public class LoginController extends BaseController {
@@ -56,12 +57,5 @@ public class LoginController extends BaseController {
         return "main";
     }
 
-    /**
-     * 密码修改页面
-     * @return
-     */
-    @RequestMapping(value = "/user/toPasswordPage")
-    public String toPasswordPage() {
-        return "user/password";
-    }
+
 }

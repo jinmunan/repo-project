@@ -20,12 +20,12 @@ import java.util.Map;
  * 8:59
  * 因为全局异常的关系 必须使用@Controller 而不是@RestController
  */
+@SuppressWarnings("all")
 @Controller
 @RequestMapping(value = "/user")
 public class UserController extends BaseController {
     @Autowired
     private UserService userService;
-
 
     @RequestMapping(value = "/login")
     @ResponseBody
@@ -55,4 +55,13 @@ public class UserController extends BaseController {
         return userService.queryAllSales();
     }
 
+
+    /**
+     * 密码修改页面
+     * @return
+     */
+    @RequestMapping(value = "/toPasswordPage")
+    public String toPasswordPage() {
+        return "user/password";
+    }
 }

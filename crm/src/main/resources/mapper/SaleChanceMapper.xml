@@ -193,5 +193,15 @@
         where id = #{id,jdbcType=NUMERIC}
     </update>
 
+    <update id="deleteBatch">
+        update t_sale_chance
+        set is_valid =0
+        where id in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+
+    </update>
+
 
 </mapper>

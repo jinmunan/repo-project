@@ -44,7 +44,7 @@ public class SaleChanceController extends BaseController {
     @RequestMapping(value = "/addOrUpdateSaleChancePage")
     public String addSaleChancePage(Integer id, Model model) {
         if (null != id) {
-            model.addAttribute("saleChance",saleChanceService.selectByPrimaryKey(id));
+            model.addAttribute("saleChance", saleChanceService.selectByPrimaryKey(id));
         }
         return "saleChance/add_update";
     }
@@ -75,4 +75,10 @@ public class SaleChanceController extends BaseController {
     }
 
 
+    @RequestMapping(value = "/delete")
+    @ResponseBody
+    public ResultInfo deleteSaleChance(Integer[] ids) {
+        saleChanceService.deleteSaleChance(ids);
+        return success("机会数据删除成功!");
+    }
 }

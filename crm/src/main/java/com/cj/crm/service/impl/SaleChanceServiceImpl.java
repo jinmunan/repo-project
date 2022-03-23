@@ -113,5 +113,17 @@ public class SaleChanceServiceImpl extends BaseService<SaleChance, Integer> impl
 
         AssertUtil.isTrue(saleChanceMapper.updateByPrimaryKeySelective(saleChance) < 1, "营销机会更新数据失败!");
     }
+
+    /**
+     * 删除操作
+     *
+     * @param ids
+     */
+    @Override
+    public void deleteSaleChance(Integer[] ids) {
+        AssertUtil.isTrue(null == ids || ids.length == 0, "请选择待删除的数据");
+        Integer rows = saleChanceMapper.deleteBatch(ids);
+        AssertUtil.isTrue(rows != ids.length, "记录删除失败");
+    }
 }
 

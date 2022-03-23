@@ -131,9 +131,50 @@ layui.use(['table', 'layer'], function () {
             case "add":
                 openAddUpdateSaleChanceDialog();
                 break;
+            case "del":
+                //获取全部选中的记录
+                delSaleChance(table.checkStatus(obj.config.id).data);
+                break;
         }
     });
 
+    /**
+     * 删除操作
+     */
+    function delSaleChance(datas) {
+        if (datas.length == 0) {
+            layer.msg("请选择删除记录");
+            return
+        }
+        layer.confirm("确定删除选中的记录", {
+            btn: ["确定", "取消"]
+        }, function (index) {
+            layer.close(index);
+            var ids = "ids=";
+            for (var i = 0; i < datas.length; i++) {
+                if (i < datas.length - 1) {
+                    ids = ids + datas[i].id + "&ids="
+                } else {
+                    ids = ids + datas[i].id
+                }
+            }
+            //console.log(ids);
+
+            $.ajax({
+                type: "post",
+                url: ctx + "/sale_chance/delete",
+                data: ids,
+                dataType: "json",
+                success: function (data) {
+                    if (data.code == 200) {
+                        tableIns.reload()
+                    } else {
+                        layer.msg(data.msg)
+                    }
+                }
+            });
+        });
+    }
 
     /**
      * 更新 行监听
@@ -142,6 +183,23 @@ layui.use(['table', 'layer'], function () {
         var layEvent = obj.event;
         if (layEvent === "edit") {
             openAddUpdateSaleChanceDialog(obj.data.id);
+        } else if (layEvent === "del") {
+            layer.confirm("确定删除选中的记录?", {icon: 3, title: "机会数据管理"}, function (index) {
+                $.ajax({
+                    type: "post",
+                    url: ctx + "/sale_chance/delete",
+                    data: {ids:obj.data.id},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == 200) {
+                            layer.msg("删除成功!")
+                            tableIns.reload()
+                        } else {
+                            layer.msg(data.msg)
+                        }
+                    }
+                });
+            });
         }
     });
 
@@ -163,6 +221,4 @@ layui.use(['table', 'layer'], function () {
             content: url
         });
     }
-
-
 });

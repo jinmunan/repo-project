@@ -4,9 +4,11 @@ import com.cy.common.utils.JsonResult;
 import com.cy.store.entity.User;
 import com.cy.store.service.UserService;
 import com.cy.store.service.exception.*;
+import jdk.nashorn.internal.runtime.FindProperty;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -92,20 +93,25 @@ public class UserController extends BaseController {
     }
 
     @RequestMapping(value = "/changeAvatar")
-    public JsonResult<String> changeAvatar(HttpSession session, @RequestParam("file") MultipartFile file) {
+    public JsonResult<String> changeAvatar(HttpSession session, @RequestParam("file") MultipartFile file) throws IOException {
         //判断文件是否为null
         if (file.isEmpty()) throw new FileEmptyException("文件为空");
         if (file.getSize() > AVATAR_MAXSIZE) throw new FileSizeException("文件大于10MB");
         if (!AVATAR_TYPE.contains(file.getContentType())) throw new FileTypeException("文件类型不支持");
         //上传的文件
-        String realPath = session.getServletContext().getRealPath("upload");
+        String realPath = session.getServletContext().getRealPath("/upload");
+
         //File对象执行这个路径
         File dir = new File(realPath);
         if (!dir.exists()) {
             dir.mkdirs();//创建目录
         }
         //获取到文件名,使用uuid生成新的文件名
+        String path = ClassUtils.getDefaultClassLoader().getResource("").getPath() + "static";
+
+
         String originalFilename = file.getOriginalFilename();
+
         log.info("原始文件名为:" + originalFilename);
         int index = originalFilename.lastIndexOf(".");
         String suffix = originalFilename.substring(index);
@@ -120,11 +126,13 @@ public class UserController extends BaseController {
         } catch (FileStateException e) {
             throw new FileStateException("文件状态异常");
         }
+
+
         Integer uid = getUidFromSession(session);
         String username = getUsernameFromSession(session);
         String avatar = "/upload/" + filename;
         log.info("生成的路径为:" + avatar);
         userService.changeAvatar(uid, avatar, username);
-        return new JsonResult<>(OK,avatar);
+        return new JsonResult<>(OK, avatar);
     }
 }
