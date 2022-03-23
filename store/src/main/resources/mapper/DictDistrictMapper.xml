@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.store.mapper.DictDistrictMapper">
+
+    <resultMap id="BaseResultMap" type="com.cy.store.entity.DictDistrict">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="parent" column="parent" jdbcType="VARCHAR"/>
+            <result property="code" column="code" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,parent,code,
+        name
+    </sql>
+
+
+    <select id="findByParent" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_dict_district
+        where
+        parent = #{parent,jdbcType=VARCHAR}
+        order by code asc
+    </select>
+
+
+    <select id="findNameByCode" resultType="java.lang.String">
+        select name
+        from t_dict_district
+        where code = #{code,jdbcType=VARCHAR}
+    </select>
+
+
+</mapper>

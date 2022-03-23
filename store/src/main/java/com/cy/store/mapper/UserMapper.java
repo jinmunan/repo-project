@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Param;
  */
 
 /**
- * 用户模块的吃就成接口
+ * 用户模块的接口
  */
 
 public interface UserMapper extends BaseMapper<User> {

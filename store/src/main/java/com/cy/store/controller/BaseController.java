@@ -56,6 +56,9 @@ public class BaseController {
         } else if (e instanceof FileUploadException) {
             result.setState(6004);
             result.setMessage("文件上传异常");
+        } else if(e instanceof AddressCountLimitException){
+            result.setState(4003);
+            result.setMessage("用户的收获地址超出上限的异常");
         }
         return result;
     }
