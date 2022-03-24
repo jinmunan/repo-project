@@ -5,13 +5,13 @@ import com.cy.store.entity.Address;
 import com.cy.store.mapper.AddressMapper;
 import com.cy.store.service.AddressService;
 import com.cy.store.service.DictDistrictService;
-import com.cy.store.service.exception.AddressCountLimitException;
-import com.cy.store.service.exception.InsertException;
+import com.cy.store.service.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author THINKPAD
@@ -57,6 +57,39 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
         int row = addressMapper.insertSelective(address);
         if (row < 1) throw new InsertException("插入用户的收获地址产生未知的异常");
     }
+
+    @Override
+    public List<Address> getByUid(Integer uid) {
+        return addressMapper.findByUid(uid);
+    }
+
+    /**
+     * 设置默认值
+     *
+     * @param aid
+     * @param uid
+     * @param modifiedUser
+     * @return
+     */
+    @Override
+    public void setDefault(Integer aid, Integer uid, String modifiedUser) {
+        //查询记录是否存在
+        Address address = addressMapper.findByAid(aid);
+        if (null == address) throw new AddressNotFoundException("收获地址不存在");
+        //检测当前获取到的收获地址数据的归属
+        if (!address.getUid().equals(uid)) throw new AccessDeniedException("非法访问数据");
+        //设置所有地址为非默认
+        int rows = addressMapper.updateIsDefaultByUid(uid);
+        if (rows < 1) throw new UpdateException("更新数据产生未知的异常");
+        //设置默认地址
+        if (addressMapper.updateIsDefaultByAid(aid, modifiedUser, new Date()) < 1)
+            throw new UpdateException("更新数据产生未知的异常");
+    }
+
+
+
+
+
 }
 
 

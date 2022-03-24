@@ -8,10 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by Jinmunan
@@ -35,4 +37,23 @@ public class AddressController extends BaseController {
         addressService.addNewAddress(address, uid, username);
         return new JsonResult<>(OK);
     }
+
+    @RequestMapping(value = "/addresses")
+    @ResponseBody
+    public JsonResult<List<Address>> getAddress(HttpSession session) {
+        Integer uid = getUidFromSession(session);
+        List<Address> list = addressService.getByUid(uid);
+        return new JsonResult<>(OK, list);
+    }
+
+    @RequestMapping(value = "/{aid}/set_default")
+    @ResponseBody
+    public JsonResult<Void> setDefault(@PathVariable("aid") Integer aid, HttpSession session) {
+        Integer uid = getUidFromSession(session);
+        String username = getUsernameFromSession(session);
+        addressService.setDefault(aid, uid, username);
+        return new JsonResult<>(OK);
+    }
+
+
 }

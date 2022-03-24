@@ -2,6 +2,10 @@ package com.cy.store.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cy.store.entity.Address;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author THINKPAD
@@ -10,4 +14,8 @@ import com.cy.store.entity.Address;
  */
 public interface AddressService extends IService<Address> {
     void addNewAddress(Address address, Integer uid, String username);
+
+    List<Address> getByUid(Integer uid);
+
+    void setDefault(Integer aid, Integer uid, String modifiedUser);
 }

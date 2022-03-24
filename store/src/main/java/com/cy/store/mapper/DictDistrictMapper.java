@@ -18,6 +18,8 @@ public interface DictDistrictMapper extends BaseMapper<DictDistrict> {
     //查询省名名字
     String findNameByCode(String code);
 
+
+
 }
 
 

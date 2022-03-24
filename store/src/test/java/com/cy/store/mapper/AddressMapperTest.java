@@ -31,4 +31,9 @@ class AddressMapperTest {
     void countByUid() {
         System.out.println(addressMapper.countByUid(23));
     }
+
+    @Test
+    void findByUid(){
+        addressMapper.findByUid(23).forEach(System.out::println);
+    }
 }
