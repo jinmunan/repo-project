@@ -88,4 +88,50 @@
         from t_address
         where uid = #{uid,jdbcType=NUMERIC}
     </select>
+
+
+    <select id="findByUid" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_address
+        where
+        uid = #{uid,jdbcType=NUMERIC}
+        order by is_default desc,modified_time desc
+    </select>
+
+
+    <select id="findByAid" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_address
+        where
+        aid = #{aid,jdbcType=NUMERIC}
+    </select>
+
+    <update id="updateIsDefaultByUid">
+        update t_address
+        set is_default = 0
+        where uid = #{uid,jdbcType=NUMERIC}
+    </update>
+
+    <update id="updateIsDefaultByAid">
+        update t_address
+        set is_default   = 1,
+            modified_user=#{modifiedUser},
+            modified_time=#{modifiedTime}
+        where aid = #{aid,jdbcType=NUMERIC}
+    </update>
+    <select id="selectAddressByModifiedTime" resultMap="BaseResultMap">
+        select *
+        from t_address
+        where uid = #{uid}
+        order by modified_time desc limit 0,1
+    </select>
+    <delete id="deleteByAid">
+        delete
+        from t_address
+        where aid = #{aid,jdbcType=NUMERIC}
+    </delete>
+
+
 </mapper>

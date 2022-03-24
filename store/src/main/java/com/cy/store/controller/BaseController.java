@@ -26,7 +26,7 @@ public class BaseController {
     /*请求处理方法,这个方法的返回值就是需要传递给前端的数据*/
     /*自动将异常对象传递给此方法的参数列表上*/
     /*当项目中产生了异常,被统一拦截到此方法,此方法就是充当处理请求的方法 方法的返回值给到前端*/
-    @ExceptionHandler({ServiceException.class,FileUploadException.class}) //用于同意处理抛出的异常
+    @ExceptionHandler({ServiceException.class, FileUploadException.class}) //用于同意处理抛出的异常
     public JsonResult<Void> handleException(Throwable e) {
         JsonResult<Void> result = new JsonResult<>(e);
         if (e instanceof UsernameDuplicatedException) {
@@ -56,9 +56,15 @@ public class BaseController {
         } else if (e instanceof FileUploadException) {
             result.setState(6004);
             result.setMessage("文件上传异常");
-        } else if(e instanceof AddressCountLimitException){
+        } else if (e instanceof AddressCountLimitException) {
             result.setState(4003);
             result.setMessage("用户的收获地址超出上限的异常");
+        } else if (e instanceof AddressNotFoundException) {
+            result.setState(4004);
+            result.setMessage("用户的收获地址不存在的异常");
+        } else if (e instanceof AccessDeniedException) {
+            result.setState(4005);
+            result.setMessage("用户的收获地址访问的异常");
         }
         return result;
     }

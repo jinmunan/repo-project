@@ -26,6 +26,10 @@ class AddressServiceTest {
             address.setName("小痕");
             addressService.addNewAddress(address,23,"小鹤");
         }
+    }
 
+    @Test
+    void setDefault(){
+        addressService.setDefault(47,16,"钟楠");
     }
 }
