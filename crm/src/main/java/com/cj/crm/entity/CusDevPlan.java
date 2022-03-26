@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
+ * 客户开发计划
  * @TableName t_cus_dev_plan
  */
 @TableName(value = "t_cus_dev_plan")

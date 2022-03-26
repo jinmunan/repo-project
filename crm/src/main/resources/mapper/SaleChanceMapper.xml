@@ -53,6 +53,12 @@
             <if test="state != null">
                 and s.state = #{state}
             </if>
+            <if test="assignMan != null">
+                and s.assign_man = #{assignMan}
+            </if>
+            <if test="devResult != null">
+                and s.dev_result = #{devResult}
+            </if>
         </where>
     </select>
 

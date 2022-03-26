@@ -19,4 +19,6 @@ public class SaleChanceQuery extends BaseQuery {
     private String customerName; //客户名
     private String createMan; //创建人
     private Integer state; //分配状态
+    private Integer assignMan;//分配人
+    private Integer devResult;//开发状态
 }

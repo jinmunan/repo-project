@@ -51,7 +51,10 @@ public class SaleChanceController extends BaseController {
 
     @RequestMapping(value = "/list")
     @ResponseBody
-    public Map<String, Object> querySaleChanceByParams(SaleChanceQuery saleChanceQuery) {
+    public Map<String, Object> querySaleChanceByParams(SaleChanceQuery saleChanceQuery, Integer flag, HttpServletRequest request) {
+        //通过cookie拿到用户id
+        int userId = LoginUserUtil.releaseUserIdFromCookie(request);
+        if (null != flag && flag == 1) saleChanceQuery.setAssignMan(userId);
         return saleChanceService.querySaleChanceByParams(saleChanceQuery);
     }
 
