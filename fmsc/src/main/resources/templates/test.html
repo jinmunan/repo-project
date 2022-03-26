@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style type="text/css" th:inline="css">
+        .style1 {
+            color: [[${color}]]
+        }
+    </style>
+
+
+    <script type="application/javascript" th:inline="javascript">
+
+    </script>
+</head>
+<body>
+<div th:replace="header::fragment1" ></div>
+
+
+<label th:text="${book.bookName}">图书名称</label>
+价格:<label th:text="${price}">价格</label>
+字符串:
+<div th:text="${str}">字符串</div>
+内敛使用:<p th:inline="text" class="style1">字符串:[[${str}]]</p>
+对象:
+<div th:object="${book}"><p th:text="*{bookId}"></p>
+    <p th:text="*{bookName}"></p></div>
+列表:
+<table style="width: 600px" border="1" cellpadding="0">
+    <caption>图书信息</caption>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>price</th>
+        <th>购买建议</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="b:${books}">
+        <td th:text="${b.bookId}"></td>
+        <td th:text="${b.bookName}"></td>
+        <td th:text="${b.price}"></td>
+<!--        <td th:if="${b.price}>40" style="color: red">太贵</td>-->
+<!--        <td th:if="${b.price}<=40" style="color: red">推荐购买</td>-->
+        <td th:switch="${b.price}/10">
+            <label th:case="3">建议购买</label>
+            <label th:case="4">太贵</label>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:replace="footer::fragment2" ></div>
+
+</body>
+</html>

@@ -9,9 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 16:40
  */
 @Controller
+@RequestMapping("page")
 public class PageController {
     @RequestMapping("/index.html")
     public String index() {
         return "index";
+    }
+
+    @RequestMapping("/test.html")
+    public String indexThy() {
+        return "test";
     }
 }
