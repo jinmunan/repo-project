@@ -30,6 +30,15 @@
         created_user,modified_user
     </sql>
     <select id="findHotList" resultType="com.cy.store.entity.Product">
-        SELECT * FROM t_product WHERE status=1 ORDER BY priority DESC LIMIT 0,4
+        SELECT *
+        FROM t_product
+        WHERE status = 1
+        ORDER BY priority DESC LIMIT 0,4
+    </select>
+
+    <select id="findById" resultType="com.cy.store.entity.Product">
+        SELECT *
+        FROM t_product
+        WHERE id = #{id}
     </select>
 </mapper>
