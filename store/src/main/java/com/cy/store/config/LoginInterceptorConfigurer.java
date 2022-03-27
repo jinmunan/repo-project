@@ -39,6 +39,7 @@ public class LoginInterceptorConfigurer implements WebMvcConfigurer {
         list.add("/users/reg");
         list.add("/users/login");
         list.add("/dictDistrict/**");
+        list.add("/products/**");
 
         /*拦截器注册*/
         registry.addInterceptor(interceptor)

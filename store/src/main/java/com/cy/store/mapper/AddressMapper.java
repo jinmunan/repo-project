@@ -77,7 +77,14 @@ public interface AddressMapper extends BaseMapper<Address> {
      * @param aid
      * @return
      */
-    int deleteByAid(@Param("aid") Integer aid);
+    Integer deleteByAid(Integer aid);
+
+    /**
+     * 查询最近修改的地址
+     * @param uid
+     * @return
+     */
+    Address findLastModified(Integer uid);
 }
 
 

@@ -65,6 +65,9 @@ public class BaseController {
         } else if (e instanceof AccessDeniedException) {
             result.setState(4005);
             result.setMessage("用户的收获地址访问的异常");
+        } else if (e instanceof DeleteException) {
+            result.setState(5002);
+            result.setMessage("删除用户收获地址访问的异常");
         }
         return result;
     }

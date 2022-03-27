@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cy.store.mapper.ProductMapper">
+
+    <resultMap id="BaseResultMap" type="com.cy.store.entity.Product">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
+        <result property="itemType" column="item_type" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="sellPoint" column="sell_point" jdbcType="VARCHAR"/>
+        <result property="price" column="price" jdbcType="BIGINT"/>
+        <result property="num" column="num" jdbcType="INTEGER"/>
+        <result property="image" column="image" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="priority" column="priority" jdbcType="INTEGER"/>
+        <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+        <result property="modifiedTime" column="modified_time" jdbcType="TIMESTAMP"/>
+        <result property="createdUser" column="created_user" jdbcType="VARCHAR"/>
+        <result property="modifiedUser" column="modified_user" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,category_id,item_type,
+        title,sell_point,price,
+        num,image,status,
+        priority,created_time,modified_time,
+        created_user,modified_user
+    </sql>
+    <select id="findHotList" resultType="com.cy.store.entity.Product">
+        SELECT * FROM t_product WHERE status=1 ORDER BY priority DESC LIMIT 0,4
+    </select>
+</mapper>

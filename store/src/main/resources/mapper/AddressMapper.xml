@@ -127,6 +127,12 @@
         where uid = #{uid}
         order by modified_time desc limit 0,1
     </select>
+    <select id="findLastModified" resultType="com.cy.store.entity.Address">
+        select *
+        from t_address
+        where uid = #{uid}
+        order by modified_time desc limit 0,1
+    </select>
     <delete id="deleteByAid">
         delete
         from t_address

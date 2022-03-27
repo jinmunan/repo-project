@@ -19,5 +19,5 @@ public interface AddressService extends IService<Address> {
 
     void setDefault(Integer aid, Integer uid, String modifiedUser);
 
-    void deleteAddress(Integer uid,Integer aid,String username);
+    void delete(Integer aid, Integer uid, String username);
 }

@@ -32,4 +32,9 @@ class AddressServiceTest {
     void setDefault(){
         addressService.setDefault(47,16,"钟楠");
     }
+
+    @Test
+    void deleteAddress(){
+        addressService.delete(49,23,"小鹤");
+    }
 }

@@ -36,4 +36,18 @@ class AddressMapperTest {
     void findByUid(){
         addressMapper.findByUid(23).forEach(System.out::println);
     }
+
+    @Test
+    public void deleteByAid() {
+        Integer aid = 4;
+        Integer rows = addressMapper.deleteByAid(aid);
+        System.out.println("rows=" + rows);
+    }
+
+    @Test
+    public void findLastModified() {
+        Integer uid = 23;
+        Address result = addressMapper.findLastModified(uid);
+        System.out.println(result);
+    }
 }
