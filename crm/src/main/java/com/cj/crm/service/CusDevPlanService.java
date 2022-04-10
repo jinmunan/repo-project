@@ -2,6 +2,10 @@ package com.cj.crm.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cj.crm.entity.CusDevPlan;
+import com.cj.crm.query.CusDevPlanQuery;
+import com.cj.crm.query.SaleChanceQuery;
+
+import java.util.Map;
 
 /**
 * @author THINKPAD
@@ -9,5 +13,6 @@ import com.cj.crm.entity.CusDevPlan;
 * @createDate 2022-03-21 16:50:09
 */
 public interface CusDevPlanService  {
+    Map<String, Object> queryCusDevPlansByParams(CusDevPlanQuery cusDevPlanQuery);
 
 }

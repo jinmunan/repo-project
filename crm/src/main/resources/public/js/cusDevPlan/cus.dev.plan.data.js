@@ -15,7 +15,7 @@ layui.use(['table','layer'],function(){
         // 单元格最小的宽度
         ,cellMinWidth:95
         // 访问数据的URL（后台的数据接口）
-        ,url: ctx + '/cus_dev_plan/list?saleChanceId=' + $("[name='id']").val()
+        ,url: ctx + '/cus_dev_plan/list?sid=' + $("[name='id']").val()
         // 开启分页
         ,page: true
         // 默认每页显示的数量

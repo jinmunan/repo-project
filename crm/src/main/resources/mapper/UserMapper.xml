@@ -59,4 +59,10 @@
     </select>
 
 
+    <select id="selectByParams" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where isvalid=1
+    </select>
 </mapper>

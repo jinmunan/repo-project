@@ -2,7 +2,7 @@ package com.cj.common.base;
 
 
 
-
+/*分页对象*/
 public class BaseQuery {
     private Integer page=1;
     private Integer limit=10;
