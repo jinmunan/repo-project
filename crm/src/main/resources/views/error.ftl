@@ -5,6 +5,8 @@
     <title>CRM-智能办公系统</title>
 </head>
 <body>
-<h1>404</h1>
+
+<div><img src="${ctx}/images/timg.jpeg" style="width:100%"></div>
+
 </body>
 </html>

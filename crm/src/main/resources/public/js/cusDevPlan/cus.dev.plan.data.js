@@ -44,20 +44,16 @@ layui.use(['table','layer'],function(){
 
     /**
      * 监听头部工具栏
+     * 添加计划项//开发成功//开发失败
      */
     table.on('toolbar(cusDevPlans)', function (data) {
         if (data.event == "add") { // 添加计划项
-
             // 打开添加或修改计划项的页面
             openAddOrUpdateCusDevPlanDialog();
-
         } else if (data.event == "success") { // 开发成功
-
             // 更新营销机会的开发状态
             updateSaleChanceDevResult(2); // 开发成功
-
         } else if (data.event == "failed") { // 开发失败
-
             // 更新营销机会的开发状态
             updateSaleChanceDevResult(3); // 开发失败
         }
@@ -68,15 +64,11 @@ layui.use(['table','layer'],function(){
      */
     table.on('tool(cusDevPlans)',function (data) {
         if (data.event == "edit") { // 更新计划项
-
             // 打开添加或修改计划项的页面
             openAddOrUpdateCusDevPlanDialog(data.data.id);
-
         } else if (data.event == "del") { // 删除计划项
-
             // 删除计划项
             deleteCusDevPlan(data.data.id);
-
         }
     });
 
@@ -84,17 +76,14 @@ layui.use(['table','layer'],function(){
      * 打开添加或修改计划项的页面
      */
     function openAddOrUpdateCusDevPlanDialog(id) {
-
         var title = "计划项管理 - 添加计划项";
         var url = ctx + "/cus_dev_plan/toAddOrUpdateCusDevPlanPage?sId="+$("[name='id']").val();
-
         // 判断计划项的ID是否为空 （如果为空，则表示添加；不为空则表示更新操作）
         if (id != null && id != '') {
             // 更新计划项
             title = "计划项管理 - 更新计划项";
             url += "&id="+id;
         }
-
         // iframe层
         layui.layer.open({
             // 类型

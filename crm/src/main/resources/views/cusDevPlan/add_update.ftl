@@ -20,11 +20,13 @@
             <div class="layui-form-item layui-row layui-col-xs12">
                 <label class="layui-form-label">计划时间</label>
                 <div class="layui-input-block">
+                        <#if (cusDevPlan.planDate)??>
                         <input type="text" class="layui-input userName" lay-verify="required" name="planDate"
                                id="planDate" placeholder="请输入计划项时间" value="${(cusDevPlan.planDate)?string("yyyy-MM-dd")}" >
                         <#else>
                         <input type="text" class="layui-input userName" lay-verify="required" name="planDate"
                                id="planDate"  placeholder="请输入计划项时间">
+                        </#if>
                 </div>
             </div>
             <div class="layui-form-item layui-row layui-col-xs12">

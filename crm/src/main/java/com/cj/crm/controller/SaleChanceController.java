@@ -9,6 +9,7 @@ import com.cj.crm.service.SaleChanceService;
 import com.cj.crm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,11 +49,20 @@ public class SaleChanceController extends BaseController {
         return "saleChance/add_update";
     }
 
+    /**
+     * 查询当前用户的开发计划
+     *
+     * @param saleChanceQuery
+     * @param flag
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/list")
     @ResponseBody
     public Map<String, Object> querySaleChanceByParams(SaleChanceQuery saleChanceQuery, Integer flag, HttpServletRequest request) {
         //通过cookie拿到用户id
         int userId = LoginUserUtil.releaseUserIdFromCookie(request);
+        //如果是营销机会管理,就显示全部的,如果是开发机会管理,就显示个人的
         if (null != flag && flag == 1) saleChanceQuery.setAssignMan(userId);
         return saleChanceService.querySaleChanceByParams(saleChanceQuery);
     }
@@ -82,5 +92,18 @@ public class SaleChanceController extends BaseController {
     public ResultInfo deleteSaleChance(Integer[] ids) {
         saleChanceService.deleteSaleChance(ids);
         return success("机会数据删除成功!");
+    }
+
+    /**
+     * 更新开发状态
+     * @param id
+     * @param devResult
+     * @return
+     */
+    @RequestMapping("updateSaleChanceDevResult")
+    @ResponseBody
+    public ResultInfo updateSaleChanceDevResult(Integer id, Integer devResult) {
+        saleChanceService.updateSaleChanceDevResult(id, devResult);
+        return success("开发状态更新成功");
     }
 }

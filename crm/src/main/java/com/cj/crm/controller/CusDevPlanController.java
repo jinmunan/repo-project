@@ -1,6 +1,8 @@
 package com.cj.crm.controller;
 
 import com.cj.crm.common.base.BaseController;
+import com.cj.crm.common.base.ResultInfo;
+import com.cj.crm.entity.CusDevPlan;
 import com.cj.crm.query.CusDevPlanQuery;
 import com.cj.crm.service.CusDevPlanService;
 import com.cj.crm.service.SaleChanceService;
@@ -32,16 +34,63 @@ public class CusDevPlanController extends BaseController {
     }
 
     @RequestMapping("toCusDevPlanDataPage")
-    public String toCusDevPlanDataPage(Integer id, Model model) {
-        model.addAttribute("saleChance", saleChanceService.selectByPrimaryKey(id));
+    public String toCusDevPlanDataPage(Integer sid, Model model) {
+        model.addAttribute("saleChance", saleChanceService.selectByPrimaryKey(sid));
         return "cusDevPlan/cus_dev_plan_data";
     }
 
     @RequestMapping("list")
     @ResponseBody
-    public Map<String, Object> queryCusDevPlansByParams(CusDevPlanQuery c) {
-        System.out.println(c);
-        return cusDevPlanService.queryCusDevPlansByParams(c);
+    public Map<String, Object> queryCusDevPlansByParams(CusDevPlanQuery cusDevPlanQuery) {
+        return cusDevPlanService.queryCusDevPlansByParams(cusDevPlanQuery);
     }
 
+    /**
+     * 开发计划新增
+     *
+     * @return
+     */
+    @RequestMapping(value = "add")
+    @ResponseBody
+    public ResultInfo saveCusDevPlan(CusDevPlan cusDevPlan) {
+        cusDevPlanService.saveCusDevPlan(cusDevPlan);
+        return success("计划项添加成功!");
+    }
+
+    /**
+     * 更新计划项
+     *
+     * @param cusDevPlan
+     * @return
+     */
+    @RequestMapping("update")
+    @ResponseBody
+    public ResultInfo updateCusDevPlan(CusDevPlan cusDevPlan) {
+        cusDevPlanService.updateCusDevPlan(cusDevPlan);
+        return success("计划项更新成功!");
+    }
+
+    /**
+     * 删除计划项
+     * @param id
+     * @return
+     */
+    @RequestMapping("delete")
+    @ResponseBody
+    public ResultInfo deleteCusDevPlan(Integer id) {
+        cusDevPlanService.delCusDevPlan(id);
+        return success("计划项删除成功!");
+    }
+
+    /**
+     * 添加计划项页面
+     *
+     * @return
+     */
+    @RequestMapping("toAddOrUpdateCusDevPlanPage")
+    public String addOrUpdateCusDevPlanPage(Integer sId, Integer id, Model model) {
+        model.addAttribute("cusDevPlan", cusDevPlanService.selectByPrimaryKey(id));
+        model.addAttribute("sId", sId);
+        return "cusDevPlan/add_update";
+    }
 }

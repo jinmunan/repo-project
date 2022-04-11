@@ -77,9 +77,9 @@ layui.use(['table', 'layer'], function () {
 
     /**
      * 搜索按钮的点击事件
+     * 搜索的是营销机会的数据
      */
     $(".search_btn").click(function () {
-
         /**
          * 表格重载
          *  多条件查询
@@ -98,16 +98,16 @@ layui.use(['table', 'layer'], function () {
                 curr: 1 // 重新从第 1 页开始
             }
         });
-
     });
 
     /**
+     * 开发或者详情按钮
      * 行工具栏监听
      */
     table.on("tool(saleChances)", function (obj) {
         var layEvent = obj.event;
         if (layEvent === "dev") {
-            openCusDevPlanDialog("计划项数据维护", obj.data.id);
+            openCusDevPlanDialog("计划项数据开发", obj.data.id);
         } else if (layEvent === "info") {
             openCusDevPlanDialog("计划项数据详情", obj.data.id);
         }
@@ -115,17 +115,17 @@ layui.use(['table', 'layer'], function () {
 
 
     /**
-     * 打开计划项开发或详情页面
+     * 打开计划项开发或详情页面  视图
      * @param title
-     * @param id
+     * @param sid
      */
-    function openCusDevPlanDialog(title, id) {
+    function openCusDevPlanDialog(title, sid) {
         layui.layer.open({
             title: title,
             type: 2,
             area: ["700px", "500px"],
             maxmin: true,
-            content: ctx + "/cus_dev_plan/toCusDevPlanDataPage?id="+id
+            content: ctx + "/cus_dev_plan/toCusDevPlanDataPage?sid="+sid
         });
     }
 });

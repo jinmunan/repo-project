@@ -14,6 +14,8 @@ import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -29,6 +31,12 @@ public class SaleChanceService extends BaseService<SaleChance, Integer> {
     @Autowired
     private SaleChanceMapper saleChanceMapper;
 
+    /**
+     * 多条件模糊查询
+     *
+     * @param saleChanceQuery
+     * @return
+     */
     public Map<String, Object> querySaleChanceByParams(SaleChanceQuery saleChanceQuery) {
         Map<String, Object> map = new HashMap<>();
         PageHelper.startPage(saleChanceQuery.getPage(), saleChanceQuery.getLimit());
@@ -116,5 +124,20 @@ public class SaleChanceService extends BaseService<SaleChance, Integer> {
         AssertUtil.isTrue(null == ids || ids.length == 0, "请选择待删除的数据");
         Integer rows = saleChanceMapper.deleteBatch(ids);
         AssertUtil.isTrue(rows != ids.length, "记录删除失败");
+    }
+
+    /**
+     * 更新开发状态
+     *
+     * @param id
+     * @param devResult
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void updateSaleChanceDevResult(Integer id, Integer devResult) {
+        AssertUtil.isTrue(null == id, "待更新记录不存在!");
+        SaleChance temp = selectByPrimaryKey(id);
+        AssertUtil.isTrue(null == temp, "待更新记录不存在!");
+        temp.setDevResult(devResult);
+        AssertUtil.isTrue(updateByPrimaryKeySelective(temp) < 1, "机会数据更新失败!");
     }
 }
