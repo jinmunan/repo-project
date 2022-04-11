@@ -1,10 +1,9 @@
 package com.cj.crm;
 
 import com.alibaba.fastjson.JSON;
-import com.cj.common.base.ResultInfo;
-import com.cj.common.exceptions.NoLoginException;
-import com.cj.common.exceptions.ParamsException;
-import org.apache.ibatis.annotations.Param;
+import com.cj.crm.common.base.ResultInfo;
+import com.cj.crm.common.exceptions.NoLoginException;
+import com.cj.crm.common.exceptions.ParamsException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
@@ -15,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.annotation.Annotation;
-import java.util.logging.Handler;
 
 /**
  * 全局异常的处理
@@ -95,7 +92,6 @@ public class GlobalExceptionResolver implements HandlerExceptionResolver {
                 return null;
             }
         }
-
         return mv;
     }
 }

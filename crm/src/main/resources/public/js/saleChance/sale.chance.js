@@ -124,6 +124,7 @@ layui.use(['table', 'layer'], function () {
 
 
     /**
+     * 头工具栏
      * 增加和删除监听事件
      */
     table.on('toolbar(saleChances)', function (obj) {
@@ -135,6 +136,35 @@ layui.use(['table', 'layer'], function () {
                 //获取全部选中的记录
                 delSaleChance(table.checkStatus(obj.config.id).data);
                 break;
+        }
+    });
+
+
+    /**
+     * 更新和删除
+     * 行监听
+     */
+    table.on('tool(saleChances)', function (obj) {
+        var layEvent = obj.event;
+        if (layEvent === "edit") {
+            openAddUpdateSaleChanceDialog(obj.data.id);
+        } else if (layEvent === "del") {
+            layer.confirm("确定删除选中的记录?", {icon: 3, title: "机会数据管理"}, function (index) {
+                $.ajax({
+                    type: "post",
+                    url: ctx + "/sale_chance/delete",
+                    data: {ids:obj.data.id},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.code == 200) {
+                            layer.msg("删除成功!")
+                            tableIns.reload()
+                        } else {
+                            layer.msg(data.msg)
+                        }
+                    }
+                });
+            });
         }
     });
 
@@ -175,33 +205,6 @@ layui.use(['table', 'layer'], function () {
             });
         });
     }
-
-    /**
-     * 更新 行监听
-     */
-    table.on('tool(saleChances)', function (obj) {
-        var layEvent = obj.event;
-        if (layEvent === "edit") {
-            openAddUpdateSaleChanceDialog(obj.data.id);
-        } else if (layEvent === "del") {
-            layer.confirm("确定删除选中的记录?", {icon: 3, title: "机会数据管理"}, function (index) {
-                $.ajax({
-                    type: "post",
-                    url: ctx + "/sale_chance/delete",
-                    data: {ids:obj.data.id},
-                    dataType: "json",
-                    success: function (data) {
-                        if (data.code == 200) {
-                            layer.msg("删除成功!")
-                            tableIns.reload()
-                        } else {
-                            layer.msg(data.msg)
-                        }
-                    }
-                });
-            });
-        }
-    });
 
     /**
      * 打开添加或更新对话框

@@ -1,4 +1,4 @@
-package com.cj.common.base;
+package com.cj.crm.common.base;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

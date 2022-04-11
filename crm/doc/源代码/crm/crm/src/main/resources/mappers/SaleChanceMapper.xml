@@ -23,16 +23,19 @@
     id, chance_source, customer_name, cgjl, overview, link_man, link_phone, description, 
     create_man, assign_man, assign_time, state, dev_result, is_valid, create_date, update_date
   </sql>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_sale_chance
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_sale_chance
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="com.xxxx.crm.vo.SaleChance" >
     insert into t_sale_chance (id, chance_source, customer_name, 
       cgjl, overview, link_man, 

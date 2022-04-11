@@ -6,7 +6,7 @@ layui.use(['table', 'layer'], function () {
     /**
      * 下拉框
      */
-    $.post(ctx + "/user/queryAllSales", function (result) {
+    $.post(ctx + "/user/query_all_sales", function (result) {
         for (var i = 0; i < result.length; i++) {
             if ($("input[name='man']").val() == result[i].id) {
                 $("#assignMan").append(" <option value=\"" + result[i].id + "\" selected = 'selected'>" + result[i].uname + "</option>")

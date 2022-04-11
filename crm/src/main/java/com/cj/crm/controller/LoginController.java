@@ -1,12 +1,10 @@
 package com.cj.crm.controller;
 
-import com.cj.common.base.BaseController;
-import com.cj.common.utils.LoginUserUtil;
+import com.cj.crm.common.base.BaseController;
+import com.cj.crm.common.utils.LoginUserUtil;
 import com.cj.crm.entity.User;
 import com.cj.crm.mapper.UserMapper;
-import com.cj.crm.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -51,11 +49,9 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "/main")
     public String main(HttpServletRequest request) {
         Integer userId = LoginUserUtil.releaseUserIdFromCookie(request);
-        User user = userMapper.findById(userId);
+        User user = userMapper.selectByPrimaryKey(userId);
         //设置到请求域中
         request.setAttribute("user", user);
         return "main";
     }
-
-
 }

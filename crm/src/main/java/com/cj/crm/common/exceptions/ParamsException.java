@@ -1,28 +1,28 @@
-package com.cj.common.exceptions;
+package com.cj.crm.common.exceptions;
 
 /**
  * 自定义参数异常
  */
-public class NoLoginException extends RuntimeException {
+public class ParamsException extends RuntimeException {
     private Integer code=300;
-    private String msg="用户未登录!";
+    private String msg="参数异常!";
 
 
-    public NoLoginException() {
-        super("用户未登录!");
+    public ParamsException() {
+        super("参数异常!");
     }
 
-    public NoLoginException(String msg) {
+    public ParamsException(String msg) {
         super(msg);
         this.msg = msg;
     }
 
-    public NoLoginException(Integer code) {
-        super("用户未登录!");
+    public ParamsException(Integer code) {
+        super("参数异常!");
         this.code = code;
     }
 
-    public NoLoginException(Integer code, String msg) {
+    public ParamsException(Integer code, String msg) {
         super(msg);
         this.code = code;
         this.msg = msg;

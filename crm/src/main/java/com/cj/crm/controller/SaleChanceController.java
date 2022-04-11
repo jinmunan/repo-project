@@ -1,10 +1,9 @@
 package com.cj.crm.controller;
 
-import com.cj.common.base.BaseController;
-import com.cj.common.base.ResultInfo;
-import com.cj.common.utils.LoginUserUtil;
+import com.cj.crm.common.base.BaseController;
+import com.cj.crm.common.base.ResultInfo;
+import com.cj.crm.common.utils.LoginUserUtil;
 import com.cj.crm.entity.SaleChance;
-import com.cj.crm.mapper.UserMapper;
 import com.cj.crm.query.SaleChanceQuery;
 import com.cj.crm.service.SaleChanceService;
 import com.cj.crm.service.UserService;
@@ -64,7 +63,7 @@ public class SaleChanceController extends BaseController {
     public ResultInfo saveSaleChance(HttpServletRequest request, SaleChance saleChance) {
         int userId = LoginUserUtil.releaseUserIdFromCookie(request);
         //营销机会创建人为登录用户
-        saleChance.setCreateMan(userService.findById(userId).getTruename());
+        saleChance.setCreateMan(userService.selectByPrimaryKey(userId).getTrueName());
         saleChanceService.saveSaleChance(saleChance);
         return success("机会数据创建成功!");
     }

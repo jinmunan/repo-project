@@ -4,15 +4,17 @@ layui.use(['form', 'jquery', 'jquery_cookie'], function () {
         $ = layui.jquery,
         $ = layui.jquery_cookie($);
 
+    /**
+     * 更新密码
+     */
     form.on("submit(saveBtn)", function (data) {
         data = data.field;
-
         /**
          * 发送ajax
          */
         $.ajax({
             type: "POST",
-            url: ctx + "/user/updatePassword",
+            url: ctx + "/user/update_password",
             data: {
                 oldPassword: data.old_password,
                 newPassword: data.new_password,

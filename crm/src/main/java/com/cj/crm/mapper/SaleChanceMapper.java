@@ -1,12 +1,8 @@
 package com.cj.crm.mapper;
-import com.cj.common.base.BaseQuery;
-import org.apache.ibatis.annotations.Param;
 
-import com.cj.common.base.BaseMapper;
+import com.cj.crm.common.base.BaseMapper;
 import com.cj.crm.entity.SaleChance;
-import org.springframework.dao.DataAccessException;
-
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
 /**
 * @author THINKPAD
@@ -14,6 +10,7 @@ import java.util.List;
 * @createDate 2022-03-21 16:49:50
 * @Entity com.cj.crm.entity.SaleChance
 */
+@Repository
 public interface SaleChanceMapper extends BaseMapper<SaleChance, Integer> {
 
     /**

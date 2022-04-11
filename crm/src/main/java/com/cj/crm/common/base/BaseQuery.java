@@ -1,4 +1,4 @@
-package com.cj.common.base;
+package com.cj.crm.common.base;
 
 
 

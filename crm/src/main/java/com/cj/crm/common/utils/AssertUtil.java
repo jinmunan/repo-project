@@ -1,7 +1,7 @@
-package com.cj.common.utils;
+package com.cj.crm.common.utils;
 
 
-import com.cj.common.exceptions.ParamsException;
+import com.cj.crm.common.exceptions.ParamsException;
 
 public class AssertUtil {
 

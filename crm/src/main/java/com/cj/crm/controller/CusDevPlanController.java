@@ -1,7 +1,6 @@
 package com.cj.crm.controller;
 
-import com.cj.common.base.BaseController;
-import com.cj.crm.mapper.SaleChanceMapper;
+import com.cj.crm.common.base.BaseController;
 import com.cj.crm.query.CusDevPlanQuery;
 import com.cj.crm.service.CusDevPlanService;
 import com.cj.crm.service.SaleChanceService;

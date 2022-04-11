@@ -1,10 +1,8 @@
 package com.cj.crm.mapper;
-import org.apache.ibatis.annotations.Param;
 
 
-import com.cj.common.base.BaseMapper;
+import com.cj.crm.common.base.BaseMapper;
 import com.cj.crm.entity.CusDevPlan;
-import org.springframework.dao.DataAccessException;
 
 /**
 * @author THINKPAD

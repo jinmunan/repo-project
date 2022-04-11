@@ -1,4 +1,4 @@
-package com.cj.common.utils;
+package com.cj.crm.common.utils;
 
 import org.apache.commons.lang3.StringUtils;
 

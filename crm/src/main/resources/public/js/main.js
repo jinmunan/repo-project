@@ -15,6 +15,4 @@ layui.use(['element', 'layer', 'layuimini', 'jquery', 'jquery_cookie'], function
         $.removeCookie("trueName", {domain: "localhost", path: "/crm"})
         parent.location.href = ctx + "/index";
     });
-
-
 });

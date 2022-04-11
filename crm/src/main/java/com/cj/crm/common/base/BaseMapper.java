@@ -1,7 +1,6 @@
-package com.cj.common.base;
+package com.cj.crm.common.base;
 
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;

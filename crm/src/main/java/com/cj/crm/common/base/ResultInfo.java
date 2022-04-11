@@ -1,5 +1,6 @@
-package com.cj.common.base;
+package com.cj.crm.common.base;
 
+/*返回对象*/
 public class ResultInfo {
 
     private Integer code=200;

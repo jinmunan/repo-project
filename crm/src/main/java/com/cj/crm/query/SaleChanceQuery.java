@@ -1,6 +1,6 @@
 package com.cj.crm.query;
 
-import com.cj.common.base.BaseQuery;
+import com.cj.crm.common.base.BaseQuery;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

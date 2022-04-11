@@ -1,8 +1,8 @@
 package com.cj.crm.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cj.crm.common.base.BaseMapper;
 import com.cj.crm.entity.User;
-import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -14,30 +14,24 @@ import java.util.Map;
  * @Entity com.cj.crm.entity.User
  */
 @SuppressWarnings("all")
-public interface UserMapper extends BaseMapper<User> {
+@Repository
+public interface UserMapper extends BaseMapper<User, Integer> {
     /**
-     * 查询用户
-     * @param username
+     * 返回下拉框用户,销售人员
+     */
+    List<Map<String, Object>> queryAllSales();
+
+    /**
+     * 通过用户名查询用户记录，返回用户对象
+     */
+    User queryUserByName(String userName);
+
+    /**
+     * 查询所有的客户经理
+     *
      * @return
      */
-    User findByUserName(@Param("username") String username);
-
-    /**
-     * 根据id查询用户信息
-     */
-    User findById(@Param("id") Integer id);
-
-    /**
-     * 更新
-     * @param user
-     * @return
-     */
-    int updateSelective(User user);
-
-    /**
-     * 返回下拉框用户
-     */
-    List<Map<String,Object>> queryAllSales();
+    List<Map<String, Object>> queryAllCustomerManagers();
 }
 
 
