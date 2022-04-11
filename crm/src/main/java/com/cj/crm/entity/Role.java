@@ -1,6 +1,5 @@
 package com.cj.crm.entity;
 
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -13,13 +12,13 @@ import java.util.Date;
 
 /**
  * 
- * @TableName t_user
+ * @TableName t_role
  */
-@TableName(value ="t_user")
+@TableName(value ="t_role")
 @Data
-public class User implements Serializable {
+public class Role implements Serializable {
     /**
-     * 主键
+     * 
      */
     @TableId(type = IdType.AUTO)
     private Integer id;
@@ -27,32 +26,12 @@ public class User implements Serializable {
     /**
      * 
      */
-    private String userName;
+    private String roleName;
 
     /**
-     * 
+     * 备注
      */
-    private String userPwd;
-
-    /**
-     * 
-     */
-    private String trueName;
-
-    /**
-     * 
-     */
-    private String email;
-
-    /**
-     * 
-     */
-    private String phone;
-
-    /**
-     * 
-     */
-    private Integer isValid;
+    private String roleRemark;
 
     /**
      * 
@@ -67,10 +46,9 @@ public class User implements Serializable {
     private Date updateDate;
 
     /**
-     * 用户角色
-     * ids
+     * 
      */
-    private String roleIds;
+    private Integer isValid;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

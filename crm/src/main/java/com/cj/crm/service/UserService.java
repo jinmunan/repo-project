@@ -7,7 +7,9 @@ import com.cj.crm.common.utils.PhoneUtil;
 import com.cj.crm.common.utils.UserIDBase64;
 import com.cj.crm.entity.SaleChance;
 import com.cj.crm.entity.User;
+import com.cj.crm.entity.UserRole;
 import com.cj.crm.mapper.UserMapper;
+import com.cj.crm.mapper.UserRoleMapper;
 import com.cj.crm.model.UserModel;
 import com.cj.crm.query.SaleChanceQuery;
 import com.cj.crm.query.UserQuery;
@@ -19,10 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author THINKPAD
@@ -34,6 +33,9 @@ public class UserService extends BaseService<User, Integer> {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserRoleMapper userRoleMapper;
 
     /**
      * 用户登录
@@ -158,7 +160,9 @@ public class UserService extends BaseService<User, Integer> {
 
     /**
      * 用户添加
+     * 并且添加用户角色
      */
+    @Transactional(propagation = Propagation.REQUIRED)
     public void saveUser(User user) {
         /**
          * 参数校验
@@ -172,6 +176,11 @@ public class UserService extends BaseService<User, Integer> {
         user.setUpdateDate(new Date());
         user.setUserPwd(Md5Util.encode("123456"));
         AssertUtil.isTrue(insertSelective(user) < 1, "用户添加失败");
+        //用户角色管理
+        Integer userId = userMapper.queryUserByName(user.getUserName()).getId();
+        String roleIds = user.getRoleIds();//角色id添加到用户角色表中
+        relaionUserRole(userId, roleIds);
+
     }
 
     private void checkFormParams(String userName, String email, String phone) {
@@ -196,7 +205,46 @@ public class UserService extends BaseService<User, Integer> {
         AssertUtil.isTrue(null != temp && !(temp.getId().equals(user.getId())), "用户已存在");
         user.setUpdateDate(new Date());
         AssertUtil.isTrue(updateByPrimaryKeySelective(user) < 1, "用户更新失败");
+
+        //用户角色管理
+        Integer userId = userMapper.queryUserByName(user.getUserName()).getId();
+        String roleIds = user.getRoleIds();//角色id添加到用户角色表中
+        relaionUserRole(userId, roleIds);
     }
+
+    /**
+     * 关系用户角色
+     *
+     * @param userId
+     * @param roleIds
+     */
+    private void relaionUserRole(int userId, String roleIds) {
+        /**
+         * 修改的时候 如果本来就有角色如何分配
+         * 先删除所有角色 ,在加入修改后的角色
+         */
+        int count = userRoleMapper.countUserRoleByUserId(userId);
+        //如果有权限,先删除所有权限
+        if (count > 0) {
+            AssertUtil.isTrue(userRoleMapper.deleteUserRoleByUserId(userId) != count,
+                    "用户角色分配失败!");
+        }
+        //新增操作
+        if (StringUtils.isNotBlank(roleIds)) {
+            //批量处理
+            List<UserRole> userRoles = new ArrayList<>();
+            for (String s : roleIds.split(",")) {
+                UserRole userRole = new UserRole();
+                userRole.setCreateDate(new Date());
+                userRole.setRoleId(Integer.parseInt(s));
+                userRole.setUpdateDate(new Date());
+                userRole.setUserId(userId);
+                userRoles.add(userRole);
+            }
+            AssertUtil.isTrue(userRoleMapper.insertBatch(userRoles) != userRoles.size(), "用户角色记录添加失败");
+        }
+    }
+
 
     /**
      * 用户删除
